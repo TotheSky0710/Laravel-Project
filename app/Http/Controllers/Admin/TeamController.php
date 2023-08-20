@@ -22,19 +22,19 @@ class TeamController extends Controller
         return view('admin.teams.index', compact('teams'));
     }
 
-    public function create()
-    {
-        abort_if(Gate::denies('team_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        return view('admin.teams.create');
-    }
-
     public function store(StoreTeamRequest $request)
     {
         $team = Team::create($request->all());
 
         return redirect()->route('admin.teams.index');
 
+    }
+
+    public function create()
+    {
+        abort_if(Gate::denies('team_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return view('admin.teams.create');
     }
 
     public function edit(Team $team)
